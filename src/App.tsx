@@ -18,6 +18,9 @@ function App() {
   //Pages
   // const User = lazy(() => import('./pages/User'))
   const Home = lazy(() => import("./pages/Home"));
+  const RegisterPage = lazy(() => import("./pages/RegisterPage"))
+  const LoginPage = lazy(() => import("./pages/LoginPage"))
+  const TestPage = lazy(() => import("./pages/TestPage"))
   
 
   return (
@@ -26,6 +29,9 @@ function App() {
         <Suspense fallback={<>Loading...</>}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/test" element={<TestPage />} />
             {/* <Route path="/" element={<User/>}/> */}
           </Routes>
         </Suspense>

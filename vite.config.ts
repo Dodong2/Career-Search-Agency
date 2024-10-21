@@ -10,9 +10,9 @@ const manifestForPlugin = {
     'masked-icon.svg',       // Include masked icon
   ],
   manifest: {
-    name: 'Castar Web/App PWA Template',
-    short_name: 'Castar web/app template',
-    description: 'Castar Portfolio App',
+    name: 'Career Search Agency',
+    short_name: 'CSA App',
+    description: 'CSA-Career Search Agency',
     icons: [
       {
         src: './src/assets/img/dong.png',
