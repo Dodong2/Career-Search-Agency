@@ -28,3 +28,4 @@ export const loginAcc = async(email: string, password: string) => {
     const result = await response.json()
     return result
 }
+

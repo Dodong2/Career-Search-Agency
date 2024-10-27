@@ -1,5 +1,7 @@
+/********** react library **********/
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+/********** Services **********/
 import { registerAcc, loginAcc } from "../services/AuthServices";
 
 export const useAuth = () => {
