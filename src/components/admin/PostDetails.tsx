@@ -49,9 +49,9 @@ const PostDetails = () => {
         <input type="text" placeholder="Business/Company name" value={business_name} onChange={(e) => setBusiness_name(e.target.value)} required/>
         <input type="text" placeholder="descriptions" value={descriptions} onChange={(e) => setDescriptions(e.target.value)} required/>
         <input type="text" placeholder="Work Positions" value={work_positions} onChange={(e) => setWork_positions(e.target.value)} required/>
-        <input type="text" placeholder="Company Email" value={company_email} onChange={(e) => setCompany_email(e.target.value)} required/>
-        <input type="text" placeholder="Contact Number" value={contact_number} onChange={(e) => setContact_number(e.target.value)} required/>
-        <input type="text" placeholder="Slots" value={slots} onChange={(e) => setSlots(e.target.value)} required/>
+        <input type="email" placeholder="Company Email" value={company_email} onChange={(e) => setCompany_email(e.target.value)} required/>
+        <input type="number" placeholder="Contact Number" value={contact_number} onChange={(e) => setContact_number(e.target.value)} required/>
+        <input type="number" placeholder="Slots" value={slots} onChange={(e) => setSlots(e.target.value)} required/>
         <input type="text" placeholder="locations" value={locations} onChange={(e) => setLocations(e.target.value)} required/>
         <button type="submit" disabled={loading}> {loading ? 'Posting...' : 'Post'}</button>
         </form>
