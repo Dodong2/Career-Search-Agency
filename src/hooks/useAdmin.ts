@@ -1,12 +1,28 @@
 /********** react library **********/
-import { useState } from "react";
+import { useEffect, useState } from "react";
 /********** Services **********/
-import { insertDetails, InsertRequest } from "../services/AdminServices";
+import { insertDetails, InsertRequest, getDetails } from "../services/AdminServices";
+import PostDetails from "../components/admin/PostDetails";
 
 export const useAdmin = () => {
+  const [details, setDetails] = useState<InsertRequest[]>([])
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  //get hooks
+  useEffect(() => {
+    const PostDetails = async () => {
+      setLoading(true)
+      const result = await getDetails()
+      if (result.success) {
+        setDetails(result.details)
+      }
+      setLoading(false)
+    }
+    PostDetails()
+  }, [])
+
+  //insert hooks
   const Insert = async (details: InsertRequest) => {
     setLoading(true);
     setError(null);
@@ -22,5 +38,5 @@ export const useAdmin = () => {
     }
   };
 
-  return { Insert, loading, error };
+  return { Insert, loading, error, details, PostDetails };
 };

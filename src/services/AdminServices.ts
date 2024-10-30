@@ -41,3 +41,20 @@ export const insertDetails = async({ business_name, descriptions, work_positions
 
 }
 
+//Get details
+export const getDetails = async() => {
+    try {
+        const response = await fetch('http://localhost/Career Search Agency/admin.php?action=get')
+        
+        if(!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
