@@ -22,7 +22,9 @@ function App() {
   const LoginPage = lazy(() => import("./pages/user_pages/LoginPage"))
   const TestPage = lazy(() => import("./pages/TestPage"))
   //admin pages
+  const AdminPage = lazy(() => import("./pages/admin_pages/AdminPage"))
   const PostDetailsPage = lazy(() => import('./pages/admin_pages/PostDetailsPage'))
+  const ViewDetailsPage = lazy(() => import('./pages/admin_pages/ViewDetailsPage'))
   
 
   return (
@@ -34,7 +36,9 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/test" element={<TestPage />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route path="/adminPost" element={<PostDetailsPage />} />
+            <Route path="/details" element={<ViewDetailsPage />} />
             {/* <Route path="/" element={<User/>}/> */}
           </Routes>
         </Suspense>

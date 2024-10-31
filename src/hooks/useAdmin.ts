@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 /********** Services **********/
 import { insertDetails, InsertRequest, getDetails } from "../services/AdminServices";
-import PostDetails from "../components/admin/PostDetails";
 
 export const useAdmin = () => {
   const [details, setDetails] = useState<InsertRequest[]>([])
@@ -12,15 +11,15 @@ export const useAdmin = () => {
   //get hooks
   useEffect(() => {
     const PostDetails = async () => {
-      setLoading(true)
-      const result = await getDetails()
-      if (result.success) {
-        setDetails(result.details)
-      }
-      setLoading(false)
-    }
-    PostDetails()
-  }, [])
+        setLoading(true);
+        const result = await getDetails();
+        if (result.success) {
+            setDetails(result.details); 
+        }
+        setLoading(false);
+    };
+    PostDetails();
+}, []);
 
   //insert hooks
   const Insert = async (details: InsertRequest) => {
@@ -38,5 +37,5 @@ export const useAdmin = () => {
     }
   };
 
-  return { Insert, loading, error, details, PostDetails };
+  return { Insert, loading, error, details };
 };

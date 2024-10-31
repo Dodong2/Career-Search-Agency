@@ -1,5 +1,6 @@
 //Types ng insert details
  export interface InsertRequest {
+    id: string
     business_name:string
     descriptions:string
     work_positions:string
@@ -51,6 +52,7 @@ export const getDetails = async() => {
         }
 
         const result = await response.json()
+        // console.log(result);
         return result
     } catch (error) {
         console.log(error)
