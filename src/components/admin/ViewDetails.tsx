@@ -1,7 +1,7 @@
 import { useAdmin } from "../../hooks/useAdmin"
 
 const ViewDetails = () => {
-    const { details, loading, error } = useAdmin();
+    const { details, loading, error, removeDetails } = useAdmin();
 
   return (
     <>
@@ -37,7 +37,7 @@ const ViewDetails = () => {
                 <td>{detail.contact_number}</td>
                 <td>{detail.slots}</td>
                 <td>{detail.locations}</td>
-                <td><button>edit</button><button>delete</button></td>
+                <td><button>edit</button><button onClick={() => removeDetails(detail.id)}>delete</button></td>
               </tr>
             ))
           ) : (

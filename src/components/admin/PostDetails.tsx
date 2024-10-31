@@ -2,6 +2,8 @@
 import { useState } from "react"
 /********** Hooks **********/
 import { useAdmin } from "../../hooks/useAdmin"
+import { InsertDetails } from "../../utils/Types"
+import { InsertRequest } from "../../utils/Types"
 
 const PostDetails = () => {
     const [business_name, setBusiness_name] = useState('')
@@ -16,7 +18,7 @@ const PostDetails = () => {
     const handleInsert = async (e: React.FormEvent) => {
         e.preventDefault()
         //variable na naka-aarray para sama-sama
-        const details = {
+        const details: InsertDetails = {
             business_name, 
             descriptions, 
             work_positions, 
@@ -26,7 +28,7 @@ const PostDetails = () => {
             locations
         }
 
-        const result = await Insert(details)
+        const result = await Insert(details as InsertRequest)
         //if mag success
         if(result.success) {
             setBusiness_name('')
