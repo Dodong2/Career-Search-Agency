@@ -1,4 +1,5 @@
 import { useAdmin } from "../../hooks/useAdmin"
+import { Link } from "react-router-dom";
 
 const ViewDetails = () => {
     const { details, loading, error, removeDetails } = useAdmin();
@@ -21,6 +22,7 @@ const ViewDetails = () => {
             <th>Contact Number</th>
             <th>Slots</th>
             <th>Locations</th>
+            <th>Collar Job</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -37,7 +39,9 @@ const ViewDetails = () => {
                 <td>{detail.contact_number}</td>
                 <td>{detail.slots}</td>
                 <td>{detail.locations}</td>
-                <td><button>edit</button><button onClick={() => removeDetails(detail.id)}>delete</button></td>
+                <td>{detail.collar}</td>
+                <td><Link to="/update/id"><button>edit</button></Link>
+                <button onClick={() => removeDetails(detail.id)}>delete</button></td>
               </tr>
             ))
           ) : (

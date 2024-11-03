@@ -13,6 +13,7 @@ const PostDetails = () => {
     const [contact_number, setContact_number] = useState('')
     const [slots, setSlots] = useState('')
     const [locations, setLocations] = useState('')
+    const [collar, setCollar] = useState('')
     const {Insert, loading, error} = useAdmin()
 
     const handleInsert = async (e: React.FormEvent) => {
@@ -25,7 +26,8 @@ const PostDetails = () => {
             company_email, 
             contact_number, 
             slots, 
-            locations
+            locations,
+            collar
         }
 
         const result = await Insert(details as InsertRequest)
@@ -38,6 +40,7 @@ const PostDetails = () => {
             setContact_number('')
             setSlots('')
             setLocations('')
+            setCollar('')
         } else {
             alert('Failed to post')
         }
@@ -54,6 +57,7 @@ const PostDetails = () => {
         <input type="email" placeholder="Company Email" value={company_email} onChange={(e) => setCompany_email(e.target.value)} required/>
         <input type="number" placeholder="Contact Number" value={contact_number} onChange={(e) => setContact_number(e.target.value)} required/>
         <input type="number" placeholder="Slots" value={slots} onChange={(e) => setSlots(e.target.value)} required/>
+        <input type="text" placeholder="collar" value={collar} onChange={(e) => setCollar(e.target.value)} required/>
         <input type="text" placeholder="locations" value={locations} onChange={(e) => setLocations(e.target.value)} required/>
         <button type="submit" disabled={loading}> {loading ? 'Posting...' : 'Post'}</button>
         </form>

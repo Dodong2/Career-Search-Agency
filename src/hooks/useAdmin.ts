@@ -6,7 +6,7 @@ import { InsertRequest, UpdateFormData } from "../utils/Types";
 
 export const useAdmin = () => {
   const [details, setDetails] = useState<InsertRequest[]>([])
-  const [formData, setFormData] = useState<UpdateFormData | null>(null)
+  const [updateData, setUpdateData] = useState<UpdateFormData | null>(null)
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -48,28 +48,28 @@ export const useAdmin = () => {
   }
 
   //update hooks
-  useEffect(() => {
-    const fetchDetails = async () => {
-      try {
+  const fetchDetailToUpdate = async (id: string) => {
+    setLoading(true)
+    try {
         const data = await getDetails()
-        const detailToEdit = data.find((detail: UpdateFormData) => detail.id === id)
-        setFormData(detailToEdit || null)
-      } catch (error) {
-        console.error("Failed to fetch details:", error)
-      }
+        const detailsToEdit = data.find((detail: UpdateFormData) => detail.id === id)
+        setUpdateData(detailsToEdit || null)
+    } catch (error) {
+      console.error("Failed to fetch detail for update:", error)
+    } finally {
+      setLoading(false)
     }
-    fetchDetails()
-  }, [id])
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevData => prevData ? { ...prevData, [name]: value } : null);
+    setUpdateData(prevData => prevData ? { ...prevData, [name]: value } : null);
 };
 
 const handleSubmit = async () => {
-    if (formData) {
+    if (updateData) {
         try {
-            await updateDetails(formData);
+            await updateDetails(updateData);
             alert("Details updated successfully");
         } catch (error) {
             console.error("Failed to update details:", error);
@@ -77,5 +77,5 @@ const handleSubmit = async () => {
     }
 };
 
-  return { Insert, loading, error, details, removeDetails, formData };
+  return { Insert, loading, error, details, removeDetails, updateData, handleChange, handleSubmit, fetchDetailToUpdate };
 };

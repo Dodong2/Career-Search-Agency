@@ -11,6 +11,7 @@ export const insertDetails = async(data: InsertRequest) => {
     formData.append('contact_number', data.contact_number)
     formData.append('slots', data.slots)
     formData.append('locations', data.locations)
+    formData.append('collar', data.collar)
 
     const response = await fetch('http://localhost/Career Search Agency/admin.php?action=insert', {
         method: 'POST',
@@ -83,6 +84,7 @@ export const updateDetails = async (data: InsertRequest) => {
         formData.append('contact_number', data.contact_number)
         formData.append('slots', data.slots)
         formData.append('locations', data.locations)
+        formData.append('collar', data.collar)
 
         const response = await fetch('http://localhost/Career Search Agency/admin.php?action=update', {
             method: 'POST',

@@ -7,6 +7,7 @@ export interface InsertDetails {
     contact_number:string
     slots:string
     locations:string
+    collar: string
 }
 
 //Types ng insert details
@@ -19,6 +20,7 @@ export interface InsertRequest {
     contact_number:string
     slots:string
     locations:string
+    collar: string
 }
 
 //Types ng updateForm 
@@ -31,4 +33,10 @@ export interface UpdateFormData {
     contact_number: string;
     slots: string;
     locations: string;
+    collar: string
+}
+
+//Update Data Props
+export interface UpdateDetailsProps {
+    id: string
 }
