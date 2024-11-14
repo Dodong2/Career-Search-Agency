@@ -6,9 +6,21 @@ import { InsertRequest, UpdateFormData } from "../utils/Types";
 
 export const useAdmin = () => {
   const [details, setDetails] = useState<InsertRequest[]>([])
-  const [updateData, setUpdateData] = useState<UpdateFormData | null>(null)
+  const [updateData, setUpdateData] = useState<UpdateFormData | null>({
+    id: '',
+    business_name: '',
+    descriptions: '',
+    work_positions: '',
+    company_email: '',
+    contact_number: '',
+    slots: '',
+    locations: '',
+    collar: ''
+  })
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  
 
   //get hooks
   useEffect(() => {
@@ -49,20 +61,40 @@ export const useAdmin = () => {
 
   //update hooks
   const fetchDetailToUpdate = async (id: string) => {
-    setLoading(true)
-    try {
-        const data = await getDetails()
-        const detailsToEdit = data.find((detail: UpdateFormData) => detail.id === id)
-        setUpdateData(detailsToEdit || null)
-    } catch (error) {
-      console.error("Failed to fetch detail for update:", error)
-    } finally {
-      setLoading(false)
-    }
+    if (!id || id === "id") {
+      console.error("Invalid ID passed:", id);
+      return;
   }
+    setLoading(true);
+    try {
+        const response = await getDetails();
+        const data = response.details; // Access the 'details' array
+        if (Array.isArray(data)) {
+            const detailsToEdit = data.find((detail: UpdateFormData) => String(detail.id) === String(id));
+
+            setUpdateData(detailsToEdit || { id: '',
+              business_name: '',
+              descriptions: '',
+              work_positions: '',
+              company_email: '',
+              contact_number: '',
+              slots: '',
+              locations: '',
+              collar: ''
+            });
+        } else {
+            console.error("Data is not an array:", data);
+        }
+    } catch (error) {
+        console.error("Failed to fetch detail for update:", error);
+    } finally {
+        setLoading(false);
+    }
+};
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log(`Updating ${name} with value: ${value}`)
     setUpdateData(prevData => prevData ? { ...prevData, [name]: value } : null);
 };
 

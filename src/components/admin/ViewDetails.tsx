@@ -40,7 +40,7 @@ const ViewDetails = () => {
                 <td>{detail.slots}</td>
                 <td>{detail.locations}</td>
                 <td>{detail.collar}</td>
-                <td><Link to="/update/id"><button>edit</button></Link>
+                <td><Link to={`/update/${detail.id}`}><button>edit</button></Link>
                 <button onClick={() => removeDetails(detail.id)}>delete</button></td>
               </tr>
             ))
