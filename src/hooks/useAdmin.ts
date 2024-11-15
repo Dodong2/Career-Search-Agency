@@ -20,20 +20,20 @@ export const useAdmin = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  
+
 
   //get hooks
   useEffect(() => {
     const PostDetails = async () => {
-        setLoading(true);
-        const result = await getDetails();
-        if (result.success) {
-            setDetails(result.details); 
-        }
-        setLoading(false);
+      setLoading(true);
+      const result = await getDetails();
+      if (result.success) {
+        setDetails(result.details);
+      }
+      setLoading(false);
     };
     PostDetails();
-}, []);
+  }, []);
 
   //insert hooks
   const Insert = async (details: InsertRequest) => {
@@ -54,9 +54,9 @@ export const useAdmin = () => {
   //delete hooks
   const removeDetails = async (id: string) => {
     const result = await deleteDetails(id)
-      if (result.success) {
-        setDetails(prev => prev.filter(detail => detail.id !== id))
-      }
+    if (result.success) {
+      setDetails(prev => prev.filter(detail => detail.id !== id))
+    }
   }
 
   //update hooks
@@ -64,50 +64,52 @@ export const useAdmin = () => {
     if (!id || id === "id") {
       console.error("Invalid ID passed:", id);
       return;
-  }
+    }
     setLoading(true);
     try {
-        const response = await getDetails();
-        const data = response.details; // Access the 'details' array
-        if (Array.isArray(data)) {
-            const detailsToEdit = data.find((detail: UpdateFormData) => String(detail.id) === String(id));
+      const response = await getDetails();
+      const data = response.details; // Access the 'details' array
+      if (Array.isArray(data)) {
+        const detailsToEdit = data.find((detail: UpdateFormData) => String(detail.id) === String(id));
 
-            setUpdateData(detailsToEdit || { id: '',
-              business_name: '',
-              descriptions: '',
-              work_positions: '',
-              company_email: '',
-              contact_number: '',
-              slots: '',
-              locations: '',
-              collar: ''
-            });
-        } else {
-            console.error("Data is not an array:", data);
-        }
+        setUpdateData(detailsToEdit || {
+          id: '',
+          business_name: '',
+          descriptions: '',
+          work_positions: '',
+          company_email: '',
+          contact_number: '',
+          slots: '',
+          locations: '',
+          collar: ''
+        });
+      } else {
+        console.error("Data is not an array:", data);
+      }
     } catch (error) {
-        console.error("Failed to fetch detail for update:", error);
+      console.error("Failed to fetch detail for update:", error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
+  };
 
+  /* para maaccess yung update na value means mapapaltan pag wala nito hindi ma-access*/
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(`Updating ${name} with value: ${value}`)
+    // console.log(`Updating ${name} with value: ${value}`)
     setUpdateData(prevData => prevData ? { ...prevData, [name]: value } : null);
-};
+  };
 
-const handleSubmit = async () => {
+  const handleSubmit = async () => {
     if (updateData) {
-        try {
-            await updateDetails(updateData);
-            alert("Details updated successfully");
-        } catch (error) {
-            console.error("Failed to update details:", error);
-        }
+      try {
+        await updateDetails(updateData);
+        alert("Details updated successfully");
+      } catch (error) {
+        console.error("Failed to update details:", error);
+      }
     }
-};
+  };
 
   return { Insert, loading, error, details, removeDetails, updateData, handleChange, handleSubmit, fetchDetailToUpdate };
 };

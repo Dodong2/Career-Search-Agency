@@ -95,15 +95,8 @@ export const updateDetails = async (data: InsertRequest) => {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
 
-        const text = await response.text();
-        console.log("Raw response text:", text);
-
-        try {
-            const result = await response.json()
-            return result    
-        } catch (error) {
-            throw new Error(`Invalid JSON response: ${text}`);
-        }
+        const result = await response.json()
+            return result   
 
     } catch (error) {
         console.log(error)

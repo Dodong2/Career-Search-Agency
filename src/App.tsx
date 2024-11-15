@@ -20,7 +20,7 @@ function App() {
   const Home = lazy(() => import("./pages/user_pages/Home"));
   const RegisterPage = lazy(() => import("./pages/user_pages/RegisterPage"))
   const LoginPage = lazy(() => import("./pages/user_pages/LoginPage"))
-  const TestPage = lazy(() => import("./pages/TestPage"))
+  const JobPostsPage = lazy(() => import("./pages/user_pages/JobPostsPage"))
   //admin pages
   const AdminPage = lazy(() => import("./pages/admin_pages/AdminPage"))
   const PostDetailsPage = lazy(() => import('./pages/admin_pages/PostDetailsPage'))
@@ -36,7 +36,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/test" element={<TestPage />} />
+            <Route path="/test" element={<JobPostsPage />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/adminPost" element={<PostDetailsPage />} />
             <Route path="/details" element={<ViewDetailsPage />} />
