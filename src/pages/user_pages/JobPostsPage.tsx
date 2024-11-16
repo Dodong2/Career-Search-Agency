@@ -1,4 +1,5 @@
 import MainContainer from "../../components/common/MainContainer"
+import JobPosts from "../../components/users/JobPosts"
 
 const JobPostsPage = () => {
   return (
@@ -6,6 +7,7 @@ const JobPostsPage = () => {
     <MainContainer>
       <div>
         <h1>Job Post page welcome</h1>
+        <JobPosts/>
       </div>
       </MainContainer>
     </>

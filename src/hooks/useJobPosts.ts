@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 
 export const useJobPosts = () => {
     const [loading, setLoading] = useState<boolean>(false)
-    const [jobDetails, setJobDetails] = useState<InsertRequest[]>([])
+    const [details, setDetails] = useState<InsertRequest[]>([])
 
     useEffect(() => {
         const JobsLists = async () => {
             setLoading(true)
             const result = await getJobs()
             if(result.success) {
-                setJobDetails(result.jobDetails)
+                setDetails(result.details)
             }
             setLoading(false)
         }
         JobsLists()
     }, [])
 
-    return {loading, jobDetails}
+    return {loading, details}
 }
