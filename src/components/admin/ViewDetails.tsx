@@ -1,5 +1,7 @@
-import { useAdmin } from "../../hooks/useAdmin"
+/********** React Library **********/
 import { Link } from "react-router-dom";
+/********** Hooks **********/
+import { useAdmin } from "../../hooks/useAdmin"
 
 const ViewDetails = () => {
     const { details, loading, error, removeDetails } = useAdmin();

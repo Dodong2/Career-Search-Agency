@@ -1,10 +1,13 @@
-import { UpdateDetailsProps } from "../../utils/Types"
-import { useAdmin } from "../../hooks/useAdmin"
+/********** React Library **********/
 import { useEffect, useState } from "react"
+/********** Types **********/
+import { UpdateDetailsProps } from "../../utils/Types"
+/********** Hooks **********/
+import { useAdmin } from "../../hooks/useAdmin"
 
 const UpdateDetails: React.FC<UpdateDetailsProps> = ({ id }) => {
   const [loading, setLoading] = useState(true)
-    const {updateData, handleChange, handleSubmit, fetchDetailToUpdate} = useAdmin()
+  const {updateData, handleChange, handleSubmit, fetchDetailToUpdate} = useAdmin()
 
     useEffect(() => {
       if (id && loading) {

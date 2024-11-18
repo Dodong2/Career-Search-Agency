@@ -1,4 +1,6 @@
+/********** react library **********/
 import { useParams } from "react-router-dom"
+/********** Components **********/
 import MainContainer from "../../components/common/MainContainer"
 import UpdateDetails from "../../components/admin/UpdateDetails"
 

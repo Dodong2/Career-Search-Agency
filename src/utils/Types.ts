@@ -1,4 +1,4 @@
-//Types ng insert details para sa PostDetails.tscomponent
+//Types ng insert details para sa PostDetails.ts component
 export interface InsertDetails {
     business_name:string
     descriptions:string
@@ -10,7 +10,7 @@ export interface InsertDetails {
     collar: string
 }
 
-//Types ng insert details
+//Types ng insert details sa PostDetails.tsx, useAdmin.ts, useJobPosts.ts, AdminServices.ts
 export interface InsertRequest {
     id: string
     business_name:string
@@ -23,7 +23,7 @@ export interface InsertRequest {
     collar: string
 }
 
-//Types ng updateForm 
+//Types ng updateForm sa useAdmin.ts
 export interface UpdateFormData {
     id: string;
     business_name: string;
@@ -36,7 +36,7 @@ export interface UpdateFormData {
     collar: string
 }
 
-//Update Data Props
+//Update Data Props sa UpdateDetails.tsx
 export interface UpdateDetailsProps {
     id: string
 }

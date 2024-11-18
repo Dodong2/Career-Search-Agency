@@ -1,3 +1,4 @@
+/********** Components **********/
 import MainContainer from "../../components/common/MainContainer"
 import JobPosts from "../../components/users/JobPosts"
 
