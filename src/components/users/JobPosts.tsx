@@ -16,6 +16,16 @@ const JobPosts = () => {
         .toLowerCase()
         .includes(searchQuery.toLowerCase())
     );
+    
+    //pang open ng map para sa location
+    const handleOpenMap = (location: string) => {
+      if(!location) {
+        alert("Location information is not available.")
+        return
+      }
+      const url = `https://www.google.com/maps?q=${encodeURIComponent(location)}`
+      window.open(url, '_blank')
+    }
 
   return (
     <>
@@ -50,9 +60,10 @@ const JobPosts = () => {
             <div className="details__desc-inner">
                 <div>{detail.descriptions}</div>
                 <div>Slots: {detail.slots}</div>
+                <div>Email: {detail.company_email}</div>
                 <div>Contact number: {detail.contact_number}</div>
               <div className="buttons">
-                <button>Location</button>
+                <button onClick={() => handleOpenMap(detail.locations)}>Location</button>
                 <button>Send Resume via Gmail</button>
               </div>
             </div>
