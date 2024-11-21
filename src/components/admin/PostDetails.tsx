@@ -1,51 +1,33 @@
 /********** react library **********/
-import { useState } from "react"
 /********** Hooks **********/
-import { useAdmin } from "../../hooks/useAdmin"
-import { InsertDetails } from "../../utils/Types"
-import { InsertRequest } from "../../utils/Types"
+import { useHandleInsert } from "../../hooks/AdminFunctions"
 
 const PostDetails = () => {
-    const [business_name, setBusiness_name] = useState('')
-    const [descriptions, setDescriptions] = useState('')
-    const [work_positions, setWork_positions] = useState('')
-    const [company_email, setCompany_email] = useState('')
-    const [contact_number, setContact_number] = useState('')
-    const [slots, setSlots] = useState('')
-    const [locations, setLocations] = useState('')
-    const [collar, setCollar] = useState('')
-    const {Insert, loading, error} = useAdmin()
-
-    const handleInsert = async (e: React.FormEvent) => {
-        e.preventDefault()
-        //variable na naka-aarray para sama-sama
-        const details: InsertDetails = {
-            business_name, 
-            descriptions, 
-            work_positions, 
-            company_email, 
-            contact_number, 
-            slots, 
-            locations,
-            collar
-        }
-
-        const result = await Insert(details as InsertRequest)
-        //if mag success
-        if(result.success) {
-            setBusiness_name('')
-            setDescriptions('')
-            setWork_positions('')
-            setCompany_email('')
-            setContact_number('')
-            setSlots('')
-            setLocations('')
-            setCollar('')
-        } else {
-            alert('Failed to post')
-        }
+      
+  const {
+    handleInsert,
+      business_name,
+      setBusiness_name,
+      descriptions,
+      setDescriptions,
+      work_positions,
+      setWork_positions,
+      company_email,
+      setCompany_email,
+      contact_number,
+      setContact_number,
+      slots,
+      setSlots,
+      locations,
+      setLocations,
+      collar,
+      setCollar,
+      loading,
+      error,
+  } = useHandleInsert()
         
-    }
+        
+    
 
   return (
     <>

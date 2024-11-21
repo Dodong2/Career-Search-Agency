@@ -4,17 +4,19 @@ import { useEffect, useState } from "react"
 import { UpdateDetailsProps } from "../../utils/Types"
 /********** Hooks **********/
 import { useAdmin } from "../../hooks/useAdmin"
+import { useHandleUpdate } from "../../hooks/AdminFunctions"
 
 const UpdateDetails: React.FC<UpdateDetailsProps> = ({ id }) => {
   const [loading, setLoading] = useState(true)
-  const {updateData, handleChange, handleSubmit, fetchDetailToUpdate} = useAdmin()
+  const { fetchDetailToUpdate } = useAdmin()
+  const {updateData, setUpdateData, handleChange, handleSubmit} = useHandleUpdate()
 
     useEffect(() => {
       if (id && loading) {
-          fetchDetailToUpdate(id)
+          fetchDetailToUpdate(id, setUpdateData)
           setLoading(false)
       }
-  }, [fetchDetailToUpdate, id, loading])
+  }, [fetchDetailToUpdate, id, loading, setUpdateData])
 
     if(!updateData) return <p>Loading...</p>
 

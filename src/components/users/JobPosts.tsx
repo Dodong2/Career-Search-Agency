@@ -3,13 +3,14 @@ import React from "react"
 import { useState } from "react"
 /********** Hooks **********/
 import { useJobPosts } from "../../hooks/useJobPosts"
+import { handleSendResume, handleOpenMap } from "../../hooks/UsersFunctions"
 /********** Component **********/
 import SearchBar from "../common/SearchBar"
-
 const JobPosts = () => {
     const {loading, details} = useJobPosts()
     const [searchQuery, setSearchQuery] = useState<string>("");
 
+    //filtered details para sa search functions
     const filteredDetails = details.filter((detail) =>
       [detail.business_name, detail.work_positions, detail.collar]
         .join(" ") // Combine all searchable fields
@@ -17,15 +18,7 @@ const JobPosts = () => {
         .includes(searchQuery.toLowerCase())
     );
     
-    //pang open ng map para sa location
-    const handleOpenMap = (location: string) => {
-      if(!location) {
-        alert("Location information is not available.")
-        return
-      }
-      const url = `https://www.google.com/maps?q=${encodeURIComponent(location)}`
-      window.open(url, '_blank')
-    }
+    
 
   return (
     <>
@@ -59,12 +52,12 @@ const JobPosts = () => {
           <div className="details__desc">
             <div className="details__desc-inner">
                 <div>{detail.descriptions}</div>
-                <div>Slots: {detail.slots}</div>
                 <div>Email: {detail.company_email}</div>
+                <div>Locations: {detail.locations}</div>
                 <div>Contact number: {detail.contact_number}</div>
               <div className="buttons">
-                <button onClick={() => handleOpenMap(detail.locations)}>Location</button>
-                <button>Send Resume via Gmail</button>
+                <button onClick={() => handleOpenMap(detail.locations)}>See Locations</button>
+                <button onClick={() => handleSendResume(detail.company_email)}>Send Resume</button>
               </div>
             </div>
           </div><br/>

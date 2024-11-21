@@ -1,22 +1,11 @@
 /********** react library **********/
 import { useEffect, useState } from "react";
 /********** Services **********/
-import { insertDetails, getDetails, deleteDetails, updateDetails } from "../services/AdminServices";
+import { insertDetails, getDetails, deleteDetails} from "../services/AdminServices";
 import { InsertRequest, UpdateFormData } from "../utils/Types";
 
 export const useAdmin = () => {
   const [details, setDetails] = useState<InsertRequest[]>([])
-  const [updateData, setUpdateData] = useState<UpdateFormData | null>({
-    id: '',
-    business_name: '',
-    descriptions: '',
-    work_positions: '',
-    company_email: '',
-    contact_number: '',
-    slots: '',
-    locations: '',
-    collar: ''
-  })
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -60,7 +49,7 @@ export const useAdmin = () => {
   }
 
   //update hooks
-  const fetchDetailToUpdate = async (id: string) => {
+  const fetchDetailToUpdate = async (id: string, setUpdateData: (data: UpdateFormData) => void) => {
     if (!id || id === "id") {
       console.error("Invalid ID passed:", id);
       return;
@@ -93,23 +82,9 @@ export const useAdmin = () => {
     }
   };
 
-  /* para maaccess yung update na value means mapapaltan pag wala nito hindi ma-access*/
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    // console.log(`Updating ${name} with value: ${value}`)
-    setUpdateData(prevData => prevData ? { ...prevData, [name]: value } : null);
-  };
 
-  const handleSubmit = async () => {
-    if (updateData) {
-      try {
-        await updateDetails(updateData);
-        alert("Details updated successfully");
-      } catch (error) {
-        console.error("Failed to update details:", error);
-      }
-    }
-  };
 
-  return { Insert, loading, error, details, removeDetails, updateData, handleChange, handleSubmit, fetchDetailToUpdate };
+
+
+  return { Insert, loading, error, details, removeDetails, fetchDetailToUpdate };
 };
