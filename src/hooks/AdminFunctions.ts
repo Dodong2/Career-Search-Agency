@@ -86,7 +86,7 @@ export const useHandleUpdate = () => {
   })
 
     /* para maaccess yung update na value means mapapaltan pag wala nito hindi ma-access*/
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
       // console.log(`Updating ${name} with value: ${value}`)
       setUpdateData(prevData => prevData ? { ...prevData, [name]: value } : null);

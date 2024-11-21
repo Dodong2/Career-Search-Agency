@@ -33,13 +33,13 @@ const PostDetails = () => {
     <>
       <div>
         <form onSubmit={handleInsert}>
-        <input type="text" placeholder="Business/Company name" value={business_name} onChange={(e) => setBusiness_name(e.target.value)} required/>
-        <input type="text" placeholder="descriptions" value={descriptions} onChange={(e) => setDescriptions(e.target.value)} required/>
-        <input type="text" placeholder="Work Positions" value={work_positions} onChange={(e) => setWork_positions(e.target.value)} required/>
-        <input type="email" placeholder="Company Email" value={company_email} onChange={(e) => setCompany_email(e.target.value)} required/>
-        <input type="number" placeholder="Contact Number" value={contact_number} onChange={(e) => setContact_number(e.target.value)} required/>
-        <input type="number" placeholder="Slots" value={slots} onChange={(e) => setSlots(e.target.value)} required/>
-        <input type="text" placeholder="collar" value={collar} onChange={(e) => setCollar(e.target.value)} required/>
+        <input type="text" placeholder="Business/Company name" value={business_name} onChange={(e) => setBusiness_name(e.target.value)} required/><br/>
+        <textarea rows={5} cols={50} placeholder="descriptions" value={descriptions} onChange={(e) => setDescriptions(e.target.value)} required/><br/>
+        <input type="text" placeholder="Work Positions" value={work_positions} onChange={(e) => setWork_positions(e.target.value)} required/><br/>
+        <input type="email" placeholder="Company Email" value={company_email} onChange={(e) => setCompany_email(e.target.value)} required/><br/>
+        <input type="number" placeholder="Contact Number" value={contact_number} onChange={(e) => setContact_number(e.target.value)} required/><br/>
+        <input type="number" placeholder="Slots" value={slots} onChange={(e) => setSlots(e.target.value)} required/><br/>
+        <input type="text" placeholder="collar" value={collar} onChange={(e) => setCollar(e.target.value)} required/><br/>
         <input type="text" placeholder="locations" value={locations} onChange={(e) => setLocations(e.target.value)} required/>
         <button type="submit" disabled={loading}> {loading ? 'Posting...' : 'Post'}</button>
         </form>

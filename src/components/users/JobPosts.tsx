@@ -51,7 +51,7 @@ const JobPosts = () => {
           {/*contents descriptions to */}
           <div className="details__desc">
             <div className="details__desc-inner">
-                <div>{detail.descriptions}</div>
+                <div>{detail.descriptions}/n</div>
                 <div>Email: {detail.company_email}</div>
                 <div>Locations: {detail.locations}</div>
                 <div>Contact number: {detail.contact_number}</div>
