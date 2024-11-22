@@ -1,13 +1,18 @@
 /********** react library **********/
 import { useEffect, useState } from "react";
 /********** Services **********/
-import { insertDetails, getDetails, deleteDetails} from "../services/AdminServices";
+import { insertDetails, getDetails, deleteDetails, getPinkCollars, getGreenCollars, getWhiteCollars, getBlueCollars, getGreyCollars} from "../services/AdminServices";
 import { InsertRequest, UpdateFormData } from "../utils/Types";
 
 export const useAdmin = () => {
   const [details, setDetails] = useState<InsertRequest[]>([])
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [pink_collar, setPinkcollar] = useState<number | null>(null)
+  const [green_collar, setGreencollar] = useState<number | null>(null) 
+  const [white_collar, setWhitecollar] = useState<number | null>(null) 
+  const [blue_collar, setBluecollar] = useState<number | null>(null) 
+  const [grey_collar, setGreycollar] = useState<number | null>(null) 
 
 
 
@@ -82,9 +87,71 @@ export const useAdmin = () => {
     }
   };
 
+//get pink collar
+useEffect(() => {
+  const getPinkCollar = async () => {
+    setLoading(true)
+    const result = await getPinkCollars()
+    if(result.success){
+      setPinkcollar(result.pink_collar)
+    }
+    setLoading(false)
+  }
+  getPinkCollar()
+}, [])
+
+//get green collar
+useEffect(() => {
+const getGreenCollar = async () => {
+  setLoading(true)
+  const result = await getGreenCollars()
+  if(result.success) {
+    setGreencollar(result.green_collar)
+  }
+  setLoading(false)
+}
+getGreenCollar()
+}, [])
 
 
+//get white collars
+useEffect(() => {
+ const getWhiteCollar = async () => {
+  setLoading(true)
+  const result = await getWhiteCollars()
+  if(result.success) {
+    setWhitecollar(result.white_collar)
+  }
+  setLoading(false)
+ }
+ getWhiteCollar()
+}, [])
+
+//get blue collars
+useEffect(() => {
+  const getBlueCollar = async () => {
+    setLoading(true)
+    const result = await getBlueCollars()
+    if(result.success) {
+      setBluecollar(result.blue_collar)
+    }
+    setLoading(false)
+  }
+  getBlueCollar()
+}, [])
+
+useEffect(() => {
+  const getGreyCollar = async() => {
+    setLoading(true)
+    const result = await getGreyCollars()
+    if(result.success) {
+      setGreycollar(result.grey_collar)
+    }
+    setLoading(false)
+  }
+  getGreyCollar()
+}, [])
 
 
-  return { Insert, loading, error, details, removeDetails, fetchDetailToUpdate };
+  return { Insert, loading, error, details, removeDetails, fetchDetailToUpdate, pink_collar, green_collar, white_collar, blue_collar, grey_collar };
 };

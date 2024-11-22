@@ -105,3 +105,89 @@ export const updateDetails = async (data: InsertRequest) => {
     }
 };
 
+//get pink collar
+export const getPinkCollars = async() => {
+    try {
+        const response = await fetch('http://localhost/Career Search Agency/admin.php?action=pink_collars')
+
+        if(!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+//get green collar
+export const getGreenCollars = async() => {
+    try {
+        const response = await fetch('http://localhost/Career Search Agency/admin.php?action=green_collars')
+
+        if(!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+//get white collar
+export const getWhiteCollars = async() => {
+    try {
+        const response = await fetch('http://localhost/Career Search Agency/admin.php?action=white_collars')
+
+        if(!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        return result
+    } catch (error) {
+    console.log(error)
+    throw error
+    }
+}
+
+//get blue collars
+export const getBlueCollars = async() => {
+    try {
+        const response = await fetch('http://localhost/Career Search Agency/admin.php?action=blue_collars')
+
+        if(!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        return result
+
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+//get grey collar
+export const getGreyCollars = async() => {
+    try {
+        const response = await fetch('http://localhost/Career Search Agency/admin.php?action=grey_collars')
+
+        if(!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
