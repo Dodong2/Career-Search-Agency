@@ -1,6 +1,7 @@
 /********** react library **********/
 /********** Hooks **********/
 import { useHandleInsert } from "../../hooks/AdminFunctions"
+import { showNotification } from "../../utils/notificationHelper"
 
 const PostDetails = () => {
       
@@ -26,13 +27,27 @@ const PostDetails = () => {
       error,
   } = useHandleInsert()
         
-        
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    try {
+      await handleInsert(e)
+
+      await showNotification(
+        'New Job Posted',
+        `New ${business_name} position at ${collar}`
+      )
+
+    } catch (error) {
+      console.error('Error posting job:', error);
+    }
+  }
     
 
   return (
     <>
       <div>
-        <form onSubmit={handleInsert}>
+        <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Business/Company name" value={business_name} onChange={(e) => setBusiness_name(e.target.value)} required/><br/>
         <textarea rows={5} cols={50} placeholder="descriptions" value={descriptions} onChange={(e) => setDescriptions(e.target.value)} required/><br/>
         <input type="text" placeholder="Work Positions" value={work_positions} onChange={(e) => setWork_positions(e.target.value)} required/><br/>

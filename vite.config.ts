@@ -2,12 +2,16 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 
-const manifestForPlugin = {
-  registerType: 'prompt' as const,
+const manifestForPlugin: Partial<VitePWAOptions> = {
+  registerType: 'autoUpdate',
+  workbox: {
+    globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+    cleanupOutdatedCaches: true,
+  },
   includeAssets: [
-    'favicon.ico',           // Include favicon
-    'apple-touch-icon.png',  // Include apple touch icon
-    'masked-icon.svg',       // Include masked icon
+    'favicon.ico',
+    'apple-touch-icon.png',
+    'masked-icon.svg',
   ],
   manifest: {
     name: 'Career Search Agency',
@@ -20,14 +24,17 @@ const manifestForPlugin = {
         type: 'image/png',
         purpose: 'any maskable',
       }
-
     ],
     theme_color: '#141e27',
     background_color: '#141e27',
     orientation: 'portrait',
   },
+  devOptions: {
+    enabled: true,
+    type: 'module',
+  },
 };
 
 export default defineConfig({
-  plugins: [react(), VitePWA(manifestForPlugin as Partial<VitePWAOptions>)],
+  plugins: [react(), VitePWA(manifestForPlugin)],
 });
