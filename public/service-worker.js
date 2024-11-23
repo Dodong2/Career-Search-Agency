@@ -59,39 +59,31 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Don't cache API calls
-  if (event.request.url.includes('/api/')) {
-    event.respondWith(fetch(event.request));
-    return;
+  const url = new URL(event.request.url);
+
+  // Ignore requests related to Vite's dev server and dynamic imports
+  if (url.origin === self.location.origin && (
+    url.pathname.startsWith('/@vite/') ||
+    url.pathname.startsWith('/src/') ||
+    url.pathname.includes('node_modules')
+  )) {
+    return; // Don't cache these requests
   }
 
-  // For HTML navigation requests, use network-first strategy
+  // For navigation requests (HTML), use network-first strategy
   if (event.request.mode === 'navigate') {
     event.respondWith(networkFirst(event.request));
     return;
   }
 
-  // For other requests, try the cache first, then network
+  // For other requests, try cache-first, then network fallback
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request)
-          .then(fetchResponse => {
-            if (!fetchResponse || fetchResponse.status !== 200) {
-              return fetchResponse;
-            }
-            return caches.open(DYNAMIC_CACHE)
-              .then(cache => {
-                cache.put(event.request, fetchResponse.clone());
-                return fetchResponse;
-              });
-          });
-      })
+      .then((cachedResponse) => cachedResponse || fetch(event.request))
+      .catch(() => caches.match('/index.html')) // Fallback for offline
   );
 });
+
 
 // Push notification handlers remain the same
 self.addEventListener('push', (event) => {
