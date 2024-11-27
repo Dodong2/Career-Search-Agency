@@ -1,127 +1,70 @@
-const CACHE_NAME = 'my-pwa-cache-v1';
-const DYNAMIC_CACHE = 'dynamic-cache-v1';
-
-// Assets that should be cached immediately
-const STATIC_ASSETS = [
+// Define cache names for different types of assets
+const CACHE_NAME = 'my-pwa-cache-v2';
+const urlsToCache = [
   '/',
-  '/index.html',
+  '/index.html', // Add other HTML files as needed
+  '/app.tsx',     // Add your main JS bundle
+  '/App.css', // Add your main CSS file
   '/favicon.ico',
   '/apple-touch-icon.png',
-  '/masked-icon.svg'
+  '/masked-icon.svg',
+  // Add other assets you want to cache
 ];
 
-// Cache strategy: Network First, falling back to cache
-const networkFirst = async (request) => {
-  try {
-    // Try network first
-    const networkResponse = await fetch(request);
-    if (networkResponse.ok) {
-      const cache = await caches.open(DYNAMIC_CACHE);
-      cache.put(request, networkResponse.clone());
-      return networkResponse;
-    }
-    throw new Error('Network response was not ok');
-  } catch (error) {
-    // Fall back to cache
-    const cachedResponse = await caches.match(request);
-    return cachedResponse || Promise.reject('no-match');
-  }
-};
-
+// Install event listener: cache all necessary assets
 self.addEventListener('install', (event) => {
-  console.log('Service Worker installing...');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
+      .then((cache) => {
+        console.log('Opened cache');
+        return cache.addAll(urlsToCache)
+          .catch((error) => {
+            console.error('Failed to cache', error);
+          });
       })
-      .then(() => self.skipWaiting()) // Activate new service worker immediately
   );
 });
 
+
+// Activate event listener: clean up old caches if necessary
 self.addEventListener('activate', (event) => {
-  console.log('Service Worker activating...');
   event.waitUntil(
-    Promise.all([
-      // Clean up old caches
-      caches.keys().then(cacheNames => {
-        return Promise.all(
-          cacheNames
-            .filter(cacheName => cacheName !== CACHE_NAME && cacheName !== DYNAMIC_CACHE)
-            .map(cacheName => caches.delete(cacheName))
-        );
-      }),
-      // Take control of all clients immediately
-      self.clients.claim()
-    ])
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
   );
 });
 
+// Fetch event listener: serve assets from cache if available, otherwise fetch from network
 self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url);
-
-  // Ignore requests related to Vite's dev server and dynamic imports
-  if (url.origin === self.location.origin && (
-    url.pathname.startsWith('/@vite/') ||
-    url.pathname.startsWith('/src/') ||
-    url.pathname.includes('node_modules')
-  )) {
-    return; // Don't cache these requests
-  }
-
-  // For navigation requests (HTML), use network-first strategy
-  if (event.request.mode === 'navigate') {
-    event.respondWith(networkFirst(event.request));
-    return;
-  }
-
-  // For other requests, try cache-first, then network fallback
   event.respondWith(
     caches.match(event.request)
-      .then((cachedResponse) => cachedResponse || fetch(event.request))
-      .catch(() => caches.match('/index.html')) // Fallback for offline
-  );
-});
-
-
-// Push notification handlers remain the same
-self.addEventListener('push', (event) => {
-  const options = {
-    body: event.data.text(),
-    icon: './src/assets/img/dong.png',
-    badge: './src/assets/img/dong.png',
-    vibrate: [200, 100, 200],
-    tag: 'new-job-notification',
-    actions: [
-      {
-        action: 'view',
-        title: 'View Job'
-      }
-    ]
-  };
-
-  event.waitUntil(
-    self.registration.showNotification('New Job Posted!', options)
-  );
-});
-
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-
-  const urlToOpen = event.action === 'view' ? '/jobs' : '/';
-
-  event.waitUntil(
-    self.clients.matchAll({
-      type: 'window',
-      includeUncontrolled: true
-    }).then((clientList) => {
-      for (const client of clientList) {
-        if (client.url === urlToOpen && 'focus' in client) {
-          return client.focus();
+      .then((response) => {
+        if (response) {
+          return response;
         }
-      }
-      return self.clients.openWindow(urlToOpen);
-    })
+        return fetch(event.request)
+          .then((fetchResponse) => {
+            if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
+              return fetchResponse;
+            }
+            const responseToCache = fetchResponse.clone();
+            caches.open(CACHE_NAME)
+              .then((cache) => {
+                cache.put(event.request, responseToCache);
+              });
+            return fetchResponse;
+          })
+          .catch((error) => {
+            console.error('Fetch failed:', error);
+            throw error;
+          });
+      })
   );
 });

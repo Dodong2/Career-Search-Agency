@@ -6,7 +6,7 @@ const JobPostsPage = () => {
   return (
     <>
     <MainContainer>
-      <div>
+      <div className="jobpost-container">
         <h1>Job Post page welcome</h1>
         <JobPosts/>
       </div>

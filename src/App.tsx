@@ -21,6 +21,7 @@ function App() {
   const RegisterPage = lazy(() => import("./pages/user_pages/RegisterPage"))
   const LoginPage = lazy(() => import("./pages/user_pages/LoginPage"))
   const JobPostsPage = lazy(() => import("./pages/user_pages/JobPostsPage"))
+  const VerifyOTPPages = lazy(() => import('./pages/user_pages/VerifyOTPPages'))
   //admin pages
   const AdminPage = lazy(() => import("./pages/admin_pages/AdminPage"))
   const PostDetailsPage = lazy(() => import('./pages/admin_pages/PostDetailsPage'))
@@ -35,6 +36,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/verify-otp" element={<VerifyOTPPages />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/test" element={<JobPostsPage />} />
             <Route path="/admin" element={<AdminPage />} />

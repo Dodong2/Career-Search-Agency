@@ -3,81 +3,15 @@
   padding: 20px;
 }
 
-/********** Sample Header CSS **********/
-.sample-header {
-  position: relative;
-  background-color: var(--primary-color-dark);
-  border-radius: 15px;
-  margin: auto;
-  padding: 27px;
-  overflow: hidden;
-  margin-top: 28px;
-}
-.sample-header h1 {
-    font-family: 'lora';
-    font-size: 1.2em;
-    font-weight: 900;
-    text-align: center;
-    color: var(--primary-text-light);
-}
-.sample-header p {
-    font-family: 'poppins-light';
-    font-weight: 100;
-    text-align: left;
-    font-size: .8em;
-    color: var(--primary-text-light);
-    margin-top:20px ;
-}
-/********** Sample Button CSS **********/
-.sample-btn {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  font-family: "poppins-bold";
-  font-size: 1.4em;
-  background-color: var(--button-primary-bg);
-  color: var(--button-primary-text);
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  margin: auto;
-  width: 70%;
-  top: 150px;
-}
-.sample-btn:active {
-    transform: scale(0.95);
-}
+/********** JobPost Page **********/
 
-.sample-footer {
-    position: relative;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-    top: 350px;
-}
-.sample-footer h1 {
-    font-family: 'poppins-light';
-    font-size: .8em;
-    color: var(--primary-color);
-}
 
-/********** Sample Error Vibration validationn error CSS **********/
-.vibrate-not-work {
-    position: absolute;
-    text-align: center;
-    color: var(--primary-color-red);
-    font-size: .8em;
-    font-family: 'poppins-bold';
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 
-table, th, td{
-  border: 1px solid red;
-}
+
+
+
+
+
 
 
 /*pang details*/
